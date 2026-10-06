@@ -1,0 +1,139 @@
+/*
+ * Sonuç kartı. Ölçüler çark boyutuna (--wheel-size) oranlıdır; 1920x1080'de
+ * başlık ~110px. Kart çarkın alt kısmında, göbeğin altında durur; ibrenin
+ * gösterdiği üst dilim görünür kalır.
+ * Sadece transform ve opacity anime edilir (GPU dostu); parçacık, sarsıntı yok.
+ */
+.reveal {
+  --result: var(--color-primary-400);
+  --result-soft: rgba(169, 150, 247, 0.2);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  animation: reveal-exit var(--exit-duration) ease-in var(--exit-delay) forwards;
+}
+
+.win {
+  --result: var(--color-win-400);
+  --result-soft: rgba(63, 174, 136, 0.22);
+}
+
+.lose {
+  --result: var(--color-lose-400);
+  --result-soft: rgba(203, 102, 105, 0.16);
+}
+
+.anchor {
+  position: absolute;
+  left: 50%;
+  top: 74%;
+  width: 0;
+  height: 0;
+}
+
+.card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  translate: -50% -50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--wheel-size) * 0.012);
+  min-width: calc(var(--wheel-size) * 0.48);
+  padding: calc(var(--wheel-size) * 0.04) calc(var(--wheel-size) * 0.07) calc(var(--wheel-size) * 0.036);
+  border-radius: calc(var(--wheel-size) * 0.04);
+  border: 0.1rem solid rgba(255, 255, 255, 0.1);
+  background: rgba(16, 13, 40, 0.94);
+  box-shadow:
+    0 1.5rem 3.5rem rgba(3, 2, 15, 0.55),
+    0 0 3rem var(--result-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  animation: card-in 520ms var(--ease-out) var(--reveal-delay) both;
+}
+
+/* Üstte ince sonuç rengi çizgisi */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 18%;
+  right: 18%;
+  height: calc(var(--wheel-size) * 0.006);
+  border-radius: 0 0 var(--radius-pill) var(--radius-pill);
+  background: var(--result);
+}
+
+/* ÖDÜL: kart yerleştikten sonra bir kez, kısa ve yumuşak ışık */
+.win .card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 0.12rem var(--result), 0 0 2.5rem var(--result-soft);
+  opacity: 0;
+  animation: highlight 1100ms ease-in-out calc(var(--reveal-delay) + 380ms) 1;
+}
+
+.title {
+  font-size: calc(var(--wheel-size) * 0.13);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--result);
+}
+
+.subtitle {
+  font-size: calc(var(--wheel-size) * 0.036);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes highlight {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@keyframes reveal-exit {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Hareket azaltma: kart sadece belirir, ışık yok. */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: card-fade 1ms linear var(--reveal-delay) both;
+  }
+
+  .win .card::after {
+    display: none;
+  }
+
+  @keyframes card-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

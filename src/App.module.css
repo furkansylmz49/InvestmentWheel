@@ -1,0 +1,77 @@
+/*
+ * Sahne düzeni: solda marka + yatırımcı tipi seçimi, sağda büyük çark ve
+ * altında ÇARKI ÇEVİR. Çark ekranın ana öğesidir; 16:9 projeksiyonda
+ * ekran yüksekliğinin ~%78'ini kaplar.
+ */
+.app {
+  --accent: var(--color-primary-400);
+  --wheel-size: min(78vh, 50vw);
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(24rem, 0.85fr) 1.6fr;
+  align-items: center;
+  gap: var(--space-7);
+  padding: var(--space-5) var(--space-8);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+  max-width: 38rem;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.wheelArea {
+  position: relative;
+  width: var(--wheel-size);
+}
+
+.footer {
+  position: absolute;
+  left: var(--space-8);
+  bottom: var(--space-4);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.04em;
+  color: var(--color-text-faint);
+}
+
+.settings {
+  position: fixed;
+  top: var(--space-5);
+  right: var(--space-5);
+  z-index: 5;
+}
+
+/*
+ * Dar / dikey pencere: tek sütun. Kartlar yan yana dizilir ki çark ve buton
+ * kaydırma olmadan sığsın.
+ */
+@media (max-width: 900px), (max-aspect-ratio: 1/1) {
+  .app {
+    --wheel-size: min(86vw, calc(100vh - 27rem));
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    gap: var(--space-5);
+    padding: var(--space-5) var(--space-5) var(--space-7);
+  }
+
+  .sidebar {
+    gap: var(--space-4);
+    max-width: none;
+  }
+
+  .footer {
+    left: 50%;
+    translate: -50% 0;
+    white-space: nowrap;
+  }
+}

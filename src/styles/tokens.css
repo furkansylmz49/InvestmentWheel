@@ -1,0 +1,67 @@
+/*
+ * Tasarım sistemi: renkler, tipografi, boşluklar.
+ * Tüm ölçüler rem tabanlı; kök font boyutu ekran boyutuna göre ölçeklenir
+ * (global.css), böylece 1920x1080 projeksiyonda her şey orantılı büyür.
+ */
+:root {
+  /* --- Zemin: koyu lacivert → koyu mor --- */
+  --color-bg-deep: #070617;
+  --color-bg: #0c0a22;
+  --color-surface: rgba(255, 255, 255, 0.04);
+  --color-surface-strong: rgba(255, 255, 255, 0.07);
+  --color-border: rgba(203, 193, 255, 0.12);
+  --color-border-strong: rgba(203, 193, 255, 0.24);
+
+  /* --- Marka: mor / lacivert --- */
+  --color-primary-300: #c9bfff;
+  --color-primary-400: #a996f7;
+  --color-primary-500: #7c64e8;
+  --color-primary-600: #6550d4;
+
+  /* --- Metin --- */
+  --color-text: #f4f2ff;
+  --color-text-muted: #aea8cf;
+  --color-text-faint: #8a85ad;
+
+  /* --- Sonuç renkleri: SADECE çark dilimleri, sonuç kartı ve oran göstergesi --- */
+  --color-win-400: #6fd3ad;
+  --color-win-500: #3fae88;
+  --color-win-600: #369879;
+  --color-lose-400: #f29a93;
+  --color-lose-500: #cb6669;
+  --color-lose-600: #b8595e;
+
+  /* --- Tipografi: en fazla dört kalınlık --- */
+  --font-family: 'Outfit Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-size-xs: 0.875rem;
+  --font-size-sm: 1rem;
+  --font-size-md: 1.25rem;
+  --font-size-lg: 1.625rem;
+  --font-size-xl: 2.25rem;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --letter-spacing-wide: 0.08em;
+  --letter-spacing-wider: 0.16em;
+
+  /* --- Boşluk --- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* --- Biçim --- */
+  --radius-sm: 0.625rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.25rem;
+  --radius-pill: 999px;
+  --shadow-card: 0 1rem 2.5rem rgba(3, 2, 15, 0.45);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-fast: 160ms ease;
+  --transition-base: 260ms var(--ease-out);
+}

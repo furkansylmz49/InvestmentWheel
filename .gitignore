@@ -1,0 +1,30 @@
+# Dependencies and build output
+node_modules
+dist
+
+# Environment files and local secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Vercel
+.vercel
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor and OS files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Test output and temporary screenshots
+coverage
+test-results
+playwright-report
+ekran-goruntusu-*.png

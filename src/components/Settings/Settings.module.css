@@ -1,0 +1,411 @@
+.trigger {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: 0;
+  border: 0.1rem solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-text-faint);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.trigger:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-strong);
+}
+
+.icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+/* --- Panel: soldan açılan çekmece; çark sağda görünür kalır ve canlı güncellenir --- */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgba(4, 3, 14, 0.4);
+  animation: fade-in 200ms ease both;
+}
+
+.panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: min(42rem, 100vw);
+  overflow-y: auto;
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  background: #100d2a;
+  border-right: 0.1rem solid var(--color-border);
+  box-shadow: 1.5rem 0 4rem rgba(3, 2, 15, 0.5);
+  animation: slide-in 280ms var(--ease-out) both;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panelTitle {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 0.1rem solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-md);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.close:hover {
+  color: var(--color-text);
+  background: var(--color-surface-strong);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.lockNotice {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-strong);
+  border: 0.1rem solid var(--color-border-strong);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* --- Yatırımcı tipi kartı --- */
+.typeList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.typeCard {
+  --accent: var(--color-primary-400);
+  --pct: 50%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5) var(--space-2);
+  border-radius: var(--radius-md);
+  border: 0.1rem solid var(--color-border);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+/* Çarkta görünen tip: ince kenar ve solda kısa vurgu çizgisi */
+.typeCardActive {
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.typeCardActive::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 0.3rem;
+  border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+  background: var(--accent);
+}
+
+.typeName {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+}
+
+.odds {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.oddsWin,
+.oddsLose {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-4);
+  border-radius: var(--radius-sm);
+}
+
+.oddsWin {
+  background: rgba(63, 174, 136, 0.12);
+  color: var(--color-win-400);
+}
+
+.oddsLose {
+  background: rgba(203, 102, 105, 0.12);
+  color: var(--color-lose-400);
+}
+
+.oddsLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.oddsValue {
+  font-size: 2.25rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Slider: yeşil (ödül) | kırmızı (pass), düz ve ince --- */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2.25rem;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.slider:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.slider::-webkit-slider-runnable-track {
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-win-500) var(--pct), var(--color-lose-500) var(--pct));
+}
+
+.slider::-moz-range-track {
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-win-500) var(--pct), var(--color-lose-500) var(--pct));
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-top: -0.625rem;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  box-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.45);
+  transition: transform var(--transition-fast);
+}
+
+.slider::-moz-range-thumb {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  box-shadow: 0 0.15rem 0.5rem rgba(0, 0, 0, 0.45);
+}
+
+.slider:not(:disabled):active::-webkit-slider-thumb {
+  transform: scale(1.1);
+}
+
+.slider:focus-visible {
+  outline: none;
+}
+
+.slider:focus-visible::-webkit-slider-thumb {
+  outline: 0.2rem solid var(--color-primary-300);
+  outline-offset: 0.2rem;
+}
+
+.slider:focus-visible::-moz-range-thumb {
+  outline: 0.2rem solid var(--color-primary-300);
+  outline-offset: 0.2rem;
+}
+
+/* --- Sıfırlama onayı --- */
+.confirmBox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 0.1rem solid var(--color-border-strong);
+  background: var(--color-surface-strong);
+}
+
+.resetQuestion {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+}
+
+.resetActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+
+.secondaryButton,
+.dangerButton {
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.secondaryButton {
+  border: 0.1rem solid var(--color-border-strong);
+  background: var(--color-surface-strong);
+}
+
+.secondaryButton:hover:not(:disabled) {
+  border-color: var(--color-primary-400);
+  background: rgba(124, 100, 232, 0.2);
+}
+
+.dangerButton {
+  border: 0.1rem solid color-mix(in srgb, var(--color-lose-500) 70%, transparent);
+  background: rgba(203, 102, 105, 0.22);
+}
+
+.dangerButton:hover:not(:disabled) {
+  background: rgba(203, 102, 105, 0.32);
+}
+
+.secondaryButton:disabled,
+.dangerButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* --- Ses / ekran --- */
+.tiles {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 0.1rem solid var(--color-border);
+}
+
+.rowTitle {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.switch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: none;
+  width: 7.5rem;
+  height: 2.75rem;
+  padding: 0 var(--space-4) 0 3rem;
+  border: 0.1rem solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.06);
+  transition: background-color var(--transition-base), padding var(--transition-base);
+}
+
+.switchKnob {
+  position: absolute;
+  left: 0.3rem;
+  top: 50%;
+  width: 2.1rem;
+  height: 2.1rem;
+  translate: 0 -50%;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: left var(--transition-base);
+}
+
+.switchText {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.switchOn {
+  padding: 0 3rem 0 var(--space-4);
+  background: var(--color-primary-600);
+  border-color: var(--color-primary-400);
+}
+
+.switchOn .switchKnob {
+  left: calc(100% - 2.4rem);
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
